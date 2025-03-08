@@ -26,7 +26,8 @@ const NavBar = () => {
     if (element) {
       // Add a small delay to ensure any state changes have completed
       setTimeout(() => {
-        const navbarHeight = 80; // Height of fixed navbar in pixels
+        // Use a smaller navbar height value to match our CSS changes
+        const navbarHeight = window.innerWidth <= 480 ? 50 : 60; 
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
         
@@ -108,8 +109,14 @@ const NavBar = () => {
   }, []); // Empty dependency array as we're handling activePage state internally
   
   const toggleMenu = () => {
+    console.log('Toggle menu clicked, current state:', menuOpen);
     setMenuOpen(!menuOpen);
   };
+  
+  // Add console logging when the menu state changes
+  useEffect(() => {
+    console.log('Menu state changed to:', menuOpen);
+  }, [menuOpen]);
   
   // Framer Motion variants
   const menuVariants = {
@@ -117,7 +124,7 @@ const NavBar = () => {
       opacity: 0,
       y: -20,
       transition: {
-        duration: 0.4,
+        duration: 0.3,
         ease: "easeInOut"
       }
     },
@@ -125,21 +132,33 @@ const NavBar = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.4,
+        duration: 0.3,
         ease: "easeInOut",
-        staggerChildren: 0.1,
-        delayChildren: 0.2
+        staggerChildren: 0.08,
+        delayChildren: 0.1
       }
     }
   };
   
   const itemVariants = {
-    closed: { opacity: 0, y: -10 },
-    open: { opacity: 1, y: 0 }
+    closed: { 
+      opacity: 0, 
+      y: -10,
+      transition: {
+        duration: 0.2
+      }
+    },
+    open: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.3
+      }
+    }
   };
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${menuOpen ? 'menu-open' : ''}`}>
       <div className="nav-drawing">
         <svg width="100%" height="100%" viewBox="0 0 800 100" preserveAspectRatio="none">
           <path 
@@ -197,7 +216,14 @@ const NavBar = () => {
           </Link>
         </div>
         
-        <button className="mobile-menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
+        <button 
+          className="mobile-menu-toggle" 
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleMenu();
+          }} 
+          aria-label="Toggle menu"
+        >
           <div className={`menu-icon ${menuOpen ? 'open' : ''}`}>
             <span></span>
             <span></span>
@@ -212,6 +238,10 @@ const NavBar = () => {
         initial="closed"
         animate={menuOpen ? "open" : "closed"}
         variants={menuVariants}
+        style={{
+          visibility: menuOpen ? "visible" : "hidden",
+          pointerEvents: menuOpen ? "auto" : "none"
+        }}
       >
         <motion.div className="mobile-nav-items">
           <motion.div variants={itemVariants}>
