@@ -143,7 +143,7 @@ const AboutSection = () => {
         </div>
         
         <div className="about-text">
-          <h3>Hello, I'm Jane Doe</h3>
+          <h3>Hello, I'm Salah Eddine</h3>
           <p>I'm a professional illustrator and artist specialized in hand-drawn art with over 10 years of experience creating unique illustrations and artwork for clients worldwide.</p>
           <p>My work combines traditional drawing techniques with digital enhancements, maintaining the authentic feel of hand-drawn art while leveraging technology to create engaging interactive experiences.</p>
           <p>With a background in fine arts and a passion for digital innovation, I create artwork that bridges traditional and contemporary approaches. Each piece in my portfolio represents my dedication to craftsmanship and artistic expression.</p>

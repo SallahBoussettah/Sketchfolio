@@ -103,11 +103,11 @@ export default function Home() {
                 </li>
                 <li>
                   <span className="contact-icon">📱</span>
-                  <span>+1 (555) 123-4567</span>
+                  <span>+212 6 12 34 56 78</span>
                 </li>
                 <li>
                   <span className="contact-icon">📍</span>
-                  <span>New York, NY</span>
+                  <span>Marrakech, Morocco</span>
                 </li>
               </ul>
             </div>
