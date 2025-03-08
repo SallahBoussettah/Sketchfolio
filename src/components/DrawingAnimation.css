@@ -1,0 +1,55 @@
+.animation-container {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.drawing-canvas {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border: 1px dashed #999;
+  margin-bottom: 1rem;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.path-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.animation-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.animate-btn, .reset-btn {
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.3s;
+}
+
+.animate-btn:hover, .reset-btn:hover {
+  background-color: #555;
+}
+
+.animate-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+} 

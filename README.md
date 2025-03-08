@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sketchfolio - Interactive Hand-Drawn Art Portfolio
+
+A creative, interactive portfolio showcasing hand-drawn artwork through animations and interactive experiences. Built with Next.js, Anime.js, and a hand-drawn aesthetic.
+
+![Sketchfolio](public/screenshots/preview.png)
+
+## Features
+
+- **Hand-drawn animations** using Anime.js
+- **Interactive drawing components** allowing visitors to create their own artwork
+- **Paper physics simulation** with Matter.js
+- **Responsive design** that works on all devices
+- **Filterable art gallery** to showcase artwork by category
+- **Contact form** for commissions and inquiries
+
+## Tech Stack
+
+- **Next.js** - React framework for production
+- **TypeScript** - For type safety
+- **Anime.js** - For smooth animations
+- **Matter.js** - For physics simulations
+- **Framer Motion** - For UI animations
+- **CSS Modules** - For component-scoped styling
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18.17.0 or later
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/SallahBoussettah/sketchfolio.git
+cd sketchfolio
+```
+
+2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Run the development server
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment to Netlify
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project includes a `netlify.toml` file for easy deployment to Netlify.
 
-## Learn More
+### Deploy with Netlify CLI
 
-To learn more about Next.js, take a look at the following resources:
+1. Install Netlify CLI
+```bash
+npm install -g netlify-cli
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Login to Netlify
+```bash
+netlify login
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Deploy
+```bash
+netlify deploy
+```
 
-## Deploy on Vercel
+### Deploy via GitHub Integration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push your code to GitHub
+```bash
+git add .
+git commit -m "Ready for deployment"
+git push origin main
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. Connect your repository to Netlify:
+   - Go to [Netlify](https://app.netlify.com/)
+   - Click "New site from Git"
+   - Select GitHub and the repository
+   - Select the main/master branch
+   - Deploy settings will be automatically read from `netlify.toml`
+
+## Project Structure
+
+```
+/
+├── public/                # Static assets
+├── src/
+│   ├── app/               # Next.js app router pages
+│   ├── components/        # React components
+│   │   ├── animations/    # Animation components
+│   │   ├── gallery/       # Gallery components
+│   │   ├── interactive/   # Interactive components
+│   │   └── layout/        # Layout components
+│   ├── styles/            # Global styles
+│   └── types/             # TypeScript types
+├── .next/                 # Next.js build output
+├── netlify.toml           # Netlify configuration
+└── package.json           # Project dependencies and scripts
+```
+
+## Customization
+
+To customize the portfolio for your own use:
+
+1. Update the artwork in `src/components/gallery/ArtworkGallery.tsx`
+2. Edit content in `src/app/page.tsx`
+3. Modify animations in the components folder
+4. Update contact information in the contact form section
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Inspired by hand-drawn art and interactive web experiences
+- Special thanks to the creators of Anime.js and Matter.js
+- Built with love and creativity
+
+---
+
+Created by [Your Name] - [Your Website/Social]

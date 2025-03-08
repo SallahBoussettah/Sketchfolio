@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#f9f7f1" />
+  
+  <!-- Decorative elements -->
+  <path d="M0,180 Q300,150 600,200 T1200,180" stroke="#e0e0e0" stroke-width="2" fill="none" />
+  <path d="M0,280 Q300,250 600,300 T1200,280" stroke="#e0e0e0" stroke-width="2" fill="none" />
+  <path d="M0,380 Q300,350 600,400 T1200,380" stroke="#e0e0e0" stroke-width="2" fill="none" />
+  <path d="M0,480 Q300,450 600,500 T1200,480" stroke="#e0e0e0" stroke-width="2" fill="none" />
+  
+  <!-- Header mockup -->
+  <rect x="0" y="0" width="1200" height="80" fill="#ffffff" />
+  <rect x="0" y="79" width="1200" height="1" fill="#e0e0e0" />
+  <text x="120" y="50" font-family="Comic Sans MS, cursive" font-size="32" fill="#4a6fa5" font-weight="bold">Sketchfolio</text>
+  
+  <!-- Navigation -->
+  <text x="800" y="50" font-family="Comic Sans MS, cursive" font-size="18" fill="#333333">Home</text>
+  <text x="870" y="50" font-family="Comic Sans MS, cursive" font-size="18" fill="#333333">Gallery</text>
+  <text x="950" y="50" font-family="Comic Sans MS, cursive" font-size="18" fill="#333333">Animations</text>
+  <text x="1050" y="50" font-family="Comic Sans MS, cursive" font-size="18" fill="#333333">About</text>
+  
+  <!-- Main title -->
+  <text x="600" y="180" font-family="Comic Sans MS, cursive" font-size="60" text-anchor="middle" fill="#333333">Sketchfolio</text>
+  <path d="M400,190 Q500,210 600,190 T800,190" stroke="#333333" stroke-width="3" fill="none" />
+  
+  <!-- Subtitle -->
+  <text x="600" y="240" font-family="Comic Sans MS, cursive" font-size="24" text-anchor="middle" fill="#555555">An immersive interactive experience showcasing</text>
+  <text x="600" y="270" font-family="Comic Sans MS, cursive" font-size="24" text-anchor="middle" fill="#555555">creative hand-drawn artwork</text>
+  
+  <!-- Art gallery mockup -->
+  <rect x="150" y="320" width="250" height="180" rx="10" fill="#ffffff" stroke="#dddddd" stroke-width="2" />
+  <rect x="450" y="320" width="250" height="180" rx="10" fill="#ffffff" stroke="#dddddd" stroke-width="2" />
+  <rect x="750" y="320" width="250" height="180" rx="10" fill="#ffffff" stroke="#dddddd" stroke-width="2" />
+  
+  <!-- Gallery content -->
+  <circle cx="275" cy="390" r="40" stroke="#333333" stroke-width="2" fill="none" />
+  <path d="M550,380 L600,340 L650,380 L700,340" stroke="#333333" stroke-width="2" fill="none" />
+  <path d="M800,390 C 850,350 900,350 950,390" stroke="#333333" stroke-width="2" fill="none" stroke-dasharray="5,5" />
+  
+  <!-- Pencil icon -->
+  <g transform="translate(600, 550) rotate(-30)">
+    <path d="M-80,0 L40,0 L60,20 L40,40 L-80,40 L-100,20 Z" fill="#4a6fa5" stroke="#333333" stroke-width="2" />
+    <path d="M40,0 L70,0 L90,20 L70,40 L40,40 L60,20 Z" fill="#c9a97e" stroke="#333333" stroke-width="2" />
+    <path d="M-100,20 L-80,0 L-80,40 Z" fill="#f6aeae" stroke="#333333" stroke-width="2" />
+  </g>
+  
+  <!-- Sketch lines -->
+  <path d="M200,560 C 250,570 300,540 350,560" stroke="#333333" stroke-width="1" fill="none" />
+  <path d="M800,540 C 850,560 900,530 950,550" stroke="#333333" stroke-width="1" fill="none" />
+</svg> 

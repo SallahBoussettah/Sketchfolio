@@ -1,101 +1,142 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect } from 'react';
+import anime from 'animejs';
+import NavBar from '../components/layout/NavBar';
+import Footer from '../components/layout/Footer';
+import AboutSection from '../components/layout/AboutSection';
+import DrawingAnimation from '../components/animations/DrawingAnimation';
+import AdvancedDrawing from '../components/animations/AdvancedDrawing';
+import ScrollDrawing from '../components/animations/ScrollDrawing';
+import PaperPhysics from '../components/interactive/PaperPhysics';
+import ArtworkGallery from '../components/gallery/ArtworkGallery';
+import PortfolioProjects from '../components/gallery/PortfolioProjects';
+import InteractivePathDrawing from '../components/animations/InteractivePathDrawing';
+import './page.css';
 
 export default function Home() {
+  useEffect(() => {
+    // Add initial page load animation
+    anime({
+      targets: 'main',
+      opacity: [0.5, 1],
+      translateY: [10, 0],
+      easing: 'easeOutExpo',
+      duration: 1000,
+      delay: 100
+    });
+    
+    // Add section animations with smaller transforms
+    anime({
+      targets: '.section-title',
+      opacity: [0.7, 1],
+      translateY: [5, 0],
+      easing: 'easeOutExpo',
+      duration: 1000,
+      delay: anime.stagger(100, {start: 300})
+    });
+  }, []);
+  
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+    <div className="app-container">
+      <NavBar />
+      
+      <main className="main-content">
+        <section className="hero-section" id="home">
+          <div className="hero-text">
+            <h1 className="section-title main-title">Sketchfolio</h1>
+            <p className="hero-description">An immersive interactive experience showcasing creative hand-drawn artwork through animations and interactive effects.</p>
+          </div>
+        </section>
+        
+        <AboutSection />
+        
+        <section id="gallery">
+          <ArtworkGallery />
+        </section>
+        
+        <PortfolioProjects />
+        
+        <section className="animation-section" id="animations">
+          <h2 className="section-title">Animation Showcase</h2>
+          <p className="section-description">Various animation techniques that demonstrate the art of bringing illustrations to life.</p>
+          
+          <div className="animation-grid">
+            <div className="animation-item">
+              <h3 className="animation-title">Basic Path Animation</h3>
+              <p className="animation-description">Interactive drawing animations using SVG paths. Try drawing your own!</p>
+              <InteractivePathDrawing />
+            </div>
+            
+            <div className="animation-item">
+              <h3 className="animation-title">Advanced Drawing Animation</h3>
+              <p className="animation-description">Complex multi-stage animations with layered reveals.</p>
+              <AdvancedDrawing />
+            </div>
+            
+            <div className="animation-item">
+              <h3 className="animation-title">Scroll-Based Animation</h3>
+              <p className="animation-description">Artwork that reveals itself as you scroll down the page.</p>
+              <ScrollDrawing />
+            </div>
+          </div>
+        </section>
+        
+        <section className="interactive-section" id="interactive">
+          <h2 className="section-title">Interactive Experiences</h2>
+          <p className="section-description">These components allow you to interact with the artwork in engaging ways.</p>
+          
+          <PaperPhysics />
+        </section>
+        
+        <section className="contact-section" id="contact">
+          <h2 className="section-title">Get In Touch</h2>
+          <div className="contact-content">
+            <div className="contact-info">
+              <h3>Let's Work Together</h3>
+              <p>If you're interested in commissioning artwork or have questions about my portfolio, I'd love to hear from you.</p>
+              
+              <ul className="contact-details">
+                <li>
+                  <span className="contact-icon">✉️</span>
+                  <span>artist@handdrawnportfolio.com</span>
+                </li>
+                <li>
+                  <span className="contact-icon">📱</span>
+                  <span>+1 (555) 123-4567</span>
+                </li>
+                <li>
+                  <span className="contact-icon">📍</span>
+                  <span>New York, NY</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="contact-form-wrapper">
+              <form className="contact-form">
+                <div className="form-group">
+                  <label htmlFor="name">Name</label>
+                  <input type="text" id="name" name="name" placeholder="Your name" />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="Your email" />
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="message">Message</label>
+                  <textarea id="message" name="message" rows={5} placeholder="Your message"></textarea>
+                </div>
+                
+                <button type="submit" className="submit-btn">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      
+      <Footer />
     </div>
   );
 }

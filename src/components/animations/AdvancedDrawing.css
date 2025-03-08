@@ -1,0 +1,159 @@
+.advanced-drawing-container {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.advanced-drawing-container:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Paper texture */
+.advanced-drawing-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.025' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.advanced-drawing-container .drawing-canvas {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-color: #f8f7f2;
+  border: 1px dashed #999;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  position: relative;
+  z-index: 2;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Paper fold effect */
+.advanced-drawing-container .drawing-canvas::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.03) 50%);
+  border-bottom-left-radius: 8px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.advanced-drawing-container svg {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.2));
+  z-index: 3;
+  transition: transform 0.5s ease;
+}
+
+/* Animation styles */
+.frame-path,
+.sketch-element,
+.detail-element {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke 0.3s ease;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Style variations */
+.frame-path {
+  stroke: #2c3e50;
+}
+
+.sketch-element {
+  stroke: #34495e;
+  cursor: pointer;
+}
+
+.detail-element {
+  stroke: #1a2530;
+}
+
+.animation-controls {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.replay-btn {
+  padding: 0.6rem 1.8rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.replay-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s;
+}
+
+.replay-btn:hover::before {
+  left: 100%;
+}
+
+.replay-btn:hover {
+  background-color: #555;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.replay-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom cursor */
+.drawing-canvas {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M5 5L5 22L8 29L10 29L12 25L12 5L5 5Z' fill='%23333'/%3E%3Cpath d='M5 5L5 22L8 29L10 29L12 25L12 5L5 5Z' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") 0 32, auto;
+}
+
+/* Eraser marks */
+.drawing-canvas::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30,30 Q35,25 40,30 T50,30 T60,30 T70,30' fill='none' stroke='%23999' stroke-width='0.2' stroke-dasharray='2,3' opacity='0.2'/%3E%3Cpath d='M25,70 Q40,65 55,70 T85,70' fill='none' stroke='%23999' stroke-width='0.2' stroke-dasharray='2,3' opacity='0.2'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.8;
+} 

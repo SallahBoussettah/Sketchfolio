@@ -1,0 +1,529 @@
+/* Global Styles */
+body {
+  background-color: #f9f7f1;
+  color: #333;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  scroll-padding-top: 80px; /* Match the navbar height */
+  width: 100%;
+}
+
+html {
+  scroll-behavior: smooth; /* Enable smooth scrolling */
+  scroll-padding-top: 80px; /* Also set here for better browser compatibility */
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  padding-top: 80px; /* Add padding top to account for fixed navbar height */
+  overflow-x: hidden;
+}
+
+/* Section Styling */
+section {
+  margin-bottom: 5rem;
+  position: relative;
+  opacity: 1; /* Make sure sections are visible */
+  transform: none; /* Remove transform that could hide content */
+  width: 100%;
+}
+
+/* Ensure elements are visible by default */
+section {
+  opacity: 1;
+  transform: none;
+}
+
+/* Apply fadeIn animation only when needed */
+.animated-section {
+  opacity: 0.9; /* Start mostly visible */
+  transform: translateY(5px); /* Smaller transform to avoid hiding content */
+  animation: fadeIn 0.8s forwards;
+  animation-delay: calc(var(--animation-order, 0) * 0.1s);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-title {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.main-title {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  bottom: -6px;
+  left: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='8' viewBox='0 0 100 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,4 Q10,7 20,4 T40,4 T60,4 T80,4 T100,4' stroke='%23333' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 100px 8px;
+  opacity: 0.6;
+}
+
+.section-description {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  color: #555;
+}
+
+/* Hero Section */
+.hero-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 0;
+  position: relative;
+}
+
+.hero-text {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Paper texture for all sections */
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Animation Section */
+.animation-section {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.animation-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.animation-item {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.animation-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.animation-title {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: #333;
+  text-align: center;
+}
+
+.animation-description {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #555;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Interactive Section */
+.interactive-section {
+  padding: 3rem 0;
+  background-color: #f9f7f1;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 4rem 0;
+  margin-bottom: 0;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.contact-info {
+  padding: 2rem;
+}
+
+.contact-info h3 {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  color: #333;
+}
+
+.contact-info p {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+.contact-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-details li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.contact-icon {
+  margin-right: 1rem;
+  font-size: 1.5rem;
+}
+
+.contact-form-wrapper {
+  position: relative;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact-form {
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.contact-form:hover {
+  border-color: #999;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px dashed #ccc;
+  border-radius: 10px;
+  background-color: #f9f7f1;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.1);
+  transform: translateY(-2px);
+}
+
+.submit-btn {
+  padding: 0.8rem 2rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin: 1rem auto 0.5rem;
+  min-width: 180px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s;
+}
+
+.submit-btn:hover::before {
+  left: 100%;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  background-color: #444;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Styling */
+@media (max-width: 992px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .main-title {
+    font-size: 2.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .animation-item {
+    padding: 1.8rem;
+  }
+  
+  .animation-title {
+    font-size: 1.4rem;
+  }
+  
+  .animation-description {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 0 1rem;
+    padding-top: 70px; /* Slightly less padding on mobile */
+  }
+  
+  section {
+    margin-bottom: 3rem;
+  }
+
+  .hero-section {
+    padding: 2rem 0;
+  }
+  
+  .hero-text {
+    width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .main-title {
+    font-size: 2rem;
+  }
+  
+  .hero-description {
+    font-size: 1.1rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .animation-grid {
+    gap: 2rem;
+  }
+
+  .animation-item {
+    padding: 1.5rem;
+  }
+  
+  .animation-title {
+    font-size: 1.3rem;
+  }
+  
+  .animation-description {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .contact-info,
+  .contact-form-wrapper {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    padding: 0 0.8rem;
+    padding-top: 60px;
+  }
+  
+  section {
+    margin-bottom: 2.5rem;
+    width: 100%;
+  }
+  
+  .hero-text {
+    padding: 0 0.5rem;
+  }
+  
+  .animation-grid {
+    gap: 1.5rem;
+  }
+
+  .animation-item {
+    padding: 1.2rem 1rem;
+  }
+  
+  .animation-title {
+    font-size: 1.2rem;
+  }
+  
+  .animation-description {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 0 0.5rem;
+    padding-top: 60px;
+  }
+  
+  .app-container {
+    width: 100%;
+  }
+  
+  section {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .main-title {
+    font-size: 1.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .animation-item {
+    padding: 1rem 0.8rem;
+  }
+  
+  .animation-title {
+    font-size: 1.1rem;
+  }
+  
+  .animation-description {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .submit-btn {
+    font-size: 0.9rem;
+  }
+} 
