@@ -7,6 +7,7 @@ import './AboutSection.css';
 
 const AboutSection = () => {
   const imageRef = useRef<HTMLDivElement>(null);
+  const portraitSequenceRef = useRef<any>(null);
   const [contentRef, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -49,38 +50,111 @@ const AboutSection = () => {
 
   // Drawing animation on the portrait
   useEffect(() => {
-    const portraitLines = anime({
-      targets: '.portrait-line',
-      strokeDashoffset: [anime.setDashoffset, 0],
+    // Detect if on mobile
+    const isMobile = window.innerWidth <= 768;
+    
+    // Group lines by feature for sequential animation
+    const portraitSequence = anime.timeline({
       easing: 'easeInOutSine',
-      duration: 2000,
-      delay: (el, i) => i * 150,
-      direction: 'normal',
-      loop: false,
       autoplay: false
     });
     
-    const portraitFill = anime({
-      targets: '.portrait-fill',
-      opacity: [0, 0.7],
-      easing: 'easeOutQuad',
-      duration: 1000,
-      delay: 1500,
-      autoplay: false
+    // Store sequence in ref so we can access it from onClick
+    portraitSequenceRef.current = portraitSequence;
+    
+    // Speed up animations slightly on mobile
+    const durationMultiplier = isMobile ? 0.8 : 1;
+    
+    // Face outline first
+    portraitSequence.add({
+      targets: '.portrait-line:nth-child(2)', // The face outline
+      strokeDashoffset: [anime.setDashoffset, 0],
+      duration: 1200 * durationMultiplier,
+      easing: 'easeInOutQuad'
     });
+    
+    // Then eyes and facial features
+    portraitSequence.add({
+      targets: '.portrait-line:nth-child(n+3):nth-child(-n+12)', // Eyes, brows, nose, mouth
+      strokeDashoffset: [anime.setDashoffset, 0],
+      duration: 1000 * durationMultiplier,
+      delay: anime.stagger(isMobile ? 50 : 100),
+      easing: 'easeOutQuad'
+    }, '-=400'); // Overlap with previous animation
+    
+    // Then hair
+    portraitSequence.add({
+      targets: '.portrait-line:nth-child(n+13):nth-child(-n+17)', // Hair lines
+      strokeDashoffset: [anime.setDashoffset, 0],
+      duration: 800 * durationMultiplier,
+      delay: anime.stagger(isMobile ? 30 : 50),
+      easing: 'easeOutQuad'
+    }, '-=300');
+    
+    // Then body parts
+    portraitSequence.add({
+      targets: '.portrait-line:nth-child(n+18)', // Body, limbs, clothing
+      strokeDashoffset: [anime.setDashoffset, 0],
+      duration: 1200 * durationMultiplier,
+      delay: anime.stagger(isMobile ? 40 : 70),
+      easing: 'easeInOutQuad'
+    }, '-=200');
+    
+    // Finally fade in fills
+    portraitSequence.add({
+      targets: '.portrait-fill',
+      opacity: [0, 0.8],
+      easing: 'easeOutQuad',
+      duration: 800 * durationMultiplier,
+      delay: anime.stagger(isMobile ? 80 : 150)
+    }, '-=400');
+    
+    // Add subtle continuous animation to make portrait feel alive
+    // Only add liveness animation on non-mobile devices to save resources
+    const livenessAnimation = !isMobile ? anime({
+      targets: '.portrait-line',
+      strokeWidth: (el: SVGElement) => {
+        const currentWidth = parseFloat(el.getAttribute('stroke-width') || '2');
+        return [currentWidth, currentWidth * 1.2, currentWidth];
+      },
+      opacity: [1, 0.8, 1],
+      easing: 'easeInOutSine',
+      duration: 3000,
+      delay: anime.stagger(100, {start: 2000}),
+      direction: 'alternate',
+      loop: true,
+      autoplay: false
+    }) : null;
     
     const handleMouseEnter = () => {
-      portraitLines.restart();
-      portraitFill.restart();
+      if (!isMobile) {
+        portraitSequence.restart();
+        setTimeout(() => {
+          if (livenessAnimation) livenessAnimation.restart();
+        }, 3000);
+      }
     };
     
     const portraitEl = imageRef.current;
     if (portraitEl) {
-      portraitEl.addEventListener('mouseenter', handleMouseEnter);
+      // Only add mouse enter event on non-mobile
+      if (!isMobile) {
+        portraitEl.addEventListener('mouseenter', handleMouseEnter);
+      }
+      
+      // Auto-play on first view
+      setTimeout(() => {
+        portraitSequence.play();
+        if (!isMobile && livenessAnimation) {
+          setTimeout(() => {
+            livenessAnimation.play();
+          }, 3500);
+        }
+      }, 500);
     }
     
     return () => {
-      if (portraitEl) {
+      if (portraitEl && !isMobile) {
         portraitEl.removeEventListener('mouseenter', handleMouseEnter);
       }
     };
@@ -114,32 +188,88 @@ const AboutSection = () => {
       </div>
       
       <div className="about-content">
-        <div className="about-portrait" ref={imageRef}>
+        <div 
+          className="about-portrait" 
+          ref={imageRef}
+          onClick={() => {
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile && portraitSequenceRef.current) {
+              // Call animation from the ref
+              portraitSequenceRef.current.restart();
+            }
+          }}
+        >
           {/* Artist portrait as SVG for animation */}
-          <svg width="300" height="400" viewBox="0 0 300 400" className="portrait-svg">
+          <svg width="100%" height="100%" viewBox="0 0 300 400" className="portrait-svg" preserveAspectRatio="xMidYMid meet">
             <rect width="100%" height="100%" fill="#f5f5f5" />
             
-            {/* Artist portrait sketch */}
+            {/* Enhanced artist portrait sketch */}
+            {/* Face outline */}
             <ellipse cx="150" cy="120" rx="80" ry="90" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
-            <path d="M 110 180 C 130 200, 170 200, 190 180" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
-            <circle cx="120" cy="100" r="10" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
-            <circle cx="180" cy="100" r="10" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
-            <path d="M 120 100 Q 150 120, 180 100" className="portrait-line" fill="none" stroke="#333" strokeWidth="1" />
-            <path d="M 90 160 Q 150 190, 210 160" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
             
-            <path d="M 150 230 L 150 300" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
-            <path d="M 150 250 L 100 280" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
-            <path d="M 150 250 L 200 280" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
-            <path d="M 150 300 L 120 350" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
-            <path d="M 150 300 L 180 350" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
+            {/* More detailed facial features */}
+            {/* Eyes */}
+            <ellipse cx="125" cy="100" rx="15" ry="10" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            <ellipse cx="175" cy="100" rx="15" ry="10" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            <circle cx="125" cy="100" r="5" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            <circle cx="175" cy="100" r="5" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
             
-            {/* Fill elements that will fade in */}
+            {/* Eyebrows */}
+            <path d="M 110 85 Q 125 80, 140 85" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            <path d="M 160 85 Q 175 80, 190 85" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            
+            {/* Nose */}
+            <path d="M 150 110 Q 145 130, 150 140" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            <path d="M 150 140 Q 155 142, 160 140" className="portrait-line" fill="none" stroke="#333" strokeWidth="1" />
+            
+            {/* Mouth - more expressive smile */}
+            <path d="M 120 160 Q 150 180, 180 160" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
+            <path d="M 130 160 Q 150 170, 170 160" className="portrait-line" fill="none" stroke="#333" strokeWidth="1" />
+            
+            {/* Hair */}
+            <path d="M 90 100 Q 80 80, 95 60 Q 120 40, 150 35 Q 180 40, 205 60 Q 220 80, 210 100" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
+            <path d="M 90 100 Q 100 90, 120 85" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            <path d="M 210 100 Q 200 90, 180 85" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            <path d="M 120 40 Q 140 60, 150 40" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            <path d="M 150 40 Q 160 60, 180 40" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            
+            {/* Neck */}
+            <path d="M 130 210 Q 150 220, 170 210 L 170 235 Q 150 245, 130 235 Z" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            
+            {/* Body - improved proportions */}
+            <path d="M 150 245 L 150 320" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
+            
+            {/* Improved shoulders and arms */}
+            <path d="M 150 250 Q 120 255, 95 280" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
+            <path d="M 150 250 Q 180 255, 205 280" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
+            
+            {/* Hands */}
+            <path d="M 95 280 Q 90 285, 85 280 Q 80 275, 85 270 Q 90 265, 95 270 Q 100 275, 95 280" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            <path d="M 205 280 Q 210 285, 215 280 Q 220 275, 215 270 Q 210 265, 205 270 Q 200 275, 205 280" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            
+            {/* Legs with better proportions */}
+            <path d="M 150 320 Q 140 330, 130 350 Q 125 360, 120 370" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
+            <path d="M 150 320 Q 160 330, 170 350 Q 175 360, 180 370" className="portrait-line" fill="none" stroke="#333" strokeWidth="2" />
+            
+            {/* Feet */}
+            <path d="M 120 370 Q 115 375, 105 375 Q 100 375, 100 370" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            <path d="M 180 370 Q 185 375, 195 375 Q 200 375, 200 370" className="portrait-line" fill="none" stroke="#333" strokeWidth="1.5" />
+            
+            {/* Clothing details - simple shirt */}
+            <path d="M 130 265 Q 150 275, 170 265" className="portrait-line" fill="none" stroke="#333" strokeWidth="1" />
+            <path d="M 130 285 Q 150 295, 170 285" className="portrait-line" fill="none" stroke="#333" strokeWidth="1" />
+            <path d="M 130 305 Q 150 315, 170 305" className="portrait-line" fill="none" stroke="#333" strokeWidth="1" />
+            
+            {/* Fill elements with better colors */}
             <ellipse cx="150" cy="120" rx="80" ry="90" className="portrait-fill" fill="#f0ead6" opacity="0" />
-            <circle cx="120" cy="100" r="8" className="portrait-fill" fill="#333" opacity="0" />
-            <circle cx="180" cy="100" r="8" className="portrait-fill" fill="#333" opacity="0" />
+            <circle cx="125" cy="100" r="4" className="portrait-fill" fill="#333" opacity="0" />
+            <circle cx="175" cy="100" r="4" className="portrait-fill" fill="#333" opacity="0" />
           </svg>
           
           <div className="portrait-frame"></div>
+          
+          {/* Mobile tap hint that only shows on small screens */}
+          <div className="mobile-tap-hint">Tap to animate</div>
         </div>
         
         <div className="about-text">

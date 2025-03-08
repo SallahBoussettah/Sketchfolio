@@ -31,32 +31,93 @@
   height: 400px;
   margin: 0 auto;
   cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  perspective: 1000px;
+}
+
+.about-portrait:hover {
+  transform: scale(1.02) translateY(-5px);
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
+}
+
+.mobile-tap-hint {
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 4px 8px;
+  border-radius: 20px;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  display: none; /* Hide by default */
+}
+
+@media (max-width: 768px) {
+  .mobile-tap-hint {
+    display: block; /* Show on mobile */
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+  
+  .about-portrait:active .mobile-tap-hint {
+    opacity: 0;
+  }
 }
 
 .portrait-svg {
   position: relative;
   z-index: 2;
   filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+  background-color: #f8f7f3;
+  border-radius: 5px;
+}
+
+.about-portrait:hover .portrait-svg {
+  transform: rotateY(5deg) rotateX(3deg);
 }
 
 .portrait-line {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
+  transition: stroke 0.3s ease;
+}
+
+.portrait-fill {
+  transition: fill 0.3s ease, opacity 0.5s ease;
 }
 
 .portrait-frame {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border: 2px solid transparent;
-  border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 0,0 L 100,0 M 100,0 L 100,100 M 100,100 L 0,100 M 0,100 L 0,0' stroke='%23333' stroke-width='2' fill='none' stroke-linecap='round' stroke-dasharray='1 4'/%3E%3C/svg%3E");
-  border-image-slice: 30;
-  border-image-width: 10px;
-  border-image-repeat: round;
-  z-index: 3;
-  pointer-events: none;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border: 2px solid #ddd;
+  z-index: 1;
+  background-color: transparent;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  transform: translateZ(-10px);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-portrait:hover .portrait-frame {
+  border-color: #bbb;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Add subtle texture to the portrait background */
+.portrait-svg rect {
+  opacity: 0.8;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.025' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
 .about-text {
@@ -150,14 +211,26 @@
   .about-content {
     grid-template-columns: 1fr;
     gap: 2rem;
+    align-items: center;
+    text-align: center;
   }
   
   .about-portrait {
     margin: 0 auto 2rem;
+    width: 280px;
+    height: 370px;
   }
   
   .about-text {
     max-width: 100%;
+  }
+  
+  .about-text h3::after {
+    margin: 0.6rem auto 0;
+  }
+  
+  .skills-container {
+    justify-content: center;
   }
 }
 
@@ -166,27 +239,109 @@
     padding: 3rem 0;
   }
   
+  .about-portrait {
+    width: 240px;
+    height: 320px;
+  }
+  
   .about-text h3 {
     font-size: 1.8rem;
   }
   
   .about-text p {
     font-size: 1rem;
+    margin-bottom: 1.2rem;
   }
   
   .skill-item {
     font-size: 0.9rem;
     padding: 0.4rem 1rem;
   }
+  
+  .about-content {
+    padding: 1.5rem;
+  }
+  
+  .portrait-frame {
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+  }
 }
 
 @media (max-width: 480px) {
   .about-portrait {
-    width: 250px;
-    height: 333px;
+    width: 220px;
+    height: 290px;
+    margin-bottom: 1.5rem;
   }
   
   .about-content {
     padding: 1rem;
+    gap: 1.5rem;
+  }
+  
+  .about-section {
+    padding: 2rem 0;
+  }
+  
+  .about-text h3 {
+    font-size: 1.6rem;
+  }
+  
+  .about-text p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  
+  .skill-item {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.9rem;
+    margin: 0.2rem;
+  }
+  
+  .skills-container {
+    gap: 0.7rem;
+    margin-top: 0.8rem;
+  }
+  
+  .about-skills h4 {
+    font-size: 1.2rem;
+    margin: 1.2rem 0 0.5rem;
+  }
+  
+  .portrait-frame {
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .about-portrait {
+    width: 200px;
+    height: 265px;
+  }
+  
+  .about-text h3 {
+    font-size: 1.4rem;
+  }
+  
+  .about-text h3::after {
+    width: 100px;
+    height: 3px;
+    margin-top: 0.4rem;
+  }
+  
+  .skills-container {
+    gap: 0.5rem;
+  }
+  
+  .skill-item {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
   }
 } 
